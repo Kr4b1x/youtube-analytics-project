@@ -18,6 +18,54 @@ class Channel:
         self.video_count = self.channel["items"][0]["statistics"]["videoCount"]
         self.view_count = self.channel["items"][0]["statistics"]["viewCount"]
 
+    def __str__(self):
+        """
+        Вывод названия и ссылки на канал
+        """
+        return f"{self.title}({self.url})"
+
+    def __add__(self, other):
+        """
+        Метод для операции сложения объектов
+        """
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        """
+        Метод для операции вычитания объектов
+        """
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __gt__(self, other):
+        """
+        Метод для операции сравнения "больше" объектов
+        """
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __ge__(self, other):
+        """
+        Метод для операции сравнения "больше или равно" объектов
+        """
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __lt__(self, other):
+        """
+        Метод для операции сравнения "меньше" объектов
+        """
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __le__(self, other):
+        """
+        Метод для операции сравнения "меньше или равно" объектов
+        """
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __eq__(self, other):
+        """
+        Метод для операции приравнивания объектов
+        """
+        return int(self.subscriber_count) == int(other.subscriber_count)
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         print(json.dumps(self.channel, indent=2, ensure_ascii=False))
@@ -43,4 +91,3 @@ class Channel:
     @property
     def channel_id(self):
         return self.__channel_id
-
