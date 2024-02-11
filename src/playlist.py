@@ -6,7 +6,9 @@ from googleapiclient.discovery import build
 
 class PlayList:
     """
-    Класс Плейлиста
+    Класс для инициализации _id_ плейлиста и имеет следующие публичные атрибуты:
+    - название плейлиста
+    - ссылку на плейлист
     """
     api_key: str = os.getenv('YOUTUBE_API')
     youtube = build('youtube', 'v3', developerKey=api_key)
@@ -30,6 +32,9 @@ class PlayList:
 
     @property
     def total_duration(self):
+        """
+        Возвращает объект класса `datetime.timedelta` с суммарной длительностью плейлиста
+        """
         total_duration = datetime.timedelta()
         for video in self.video_response['items']:
             iso_8601_duration = video['contentDetails']['duration']
@@ -38,6 +43,9 @@ class PlayList:
         return total_duration
 
     def show_best_video(self):
+        """
+        Возвращает ссылку на самое популярное видео из плейлиста (по количеству лайков)
+        """
         max_like = 0
         max_video = ""
         for video in self.video_response['items']:
